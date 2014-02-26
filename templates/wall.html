@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+
+{% block body %}
+    {% if session.username %}
+        <div class="post_input">
+            <form class="post_to_wall" action="/wall/{{ username }}" method="post">
+                <textarea class="form-control" placeholder="Post to {{ username }}'s Wall" name="content"></textarea>
+                <input type="submit" class="btn btn-md btn-primary btn-block" value="Submit">
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="wall">
+        {% for item in wall_posts %}
+            <div class="post">
+                <h3><a href="/user/{{ item[0] }}">{{ item[0] }}</a></h3>
+                <p>{{ item[1] }}</p>
+                <p class="created_at">{{ item[2] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
