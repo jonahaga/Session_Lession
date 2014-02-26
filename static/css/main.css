@@ -1,0 +1,23 @@
+body { background-color: #eee; }
+
+form.signin,
+form.post_to_wall {
+    width: 330px;
+    margin: 50px auto; }
+
+form.signin input.form-control,
+form.post_to_wall input.form-control { margin-bottom: 5px }
+
+form.signin input.btn,
+form.post_to_wall input.btn { margin-top: 15px; }
+
+form ul { padding: 0 }
+
+form ul li { 
+    background-color: #f9f892;
+    border: 1px solid #dbd966;
+    border-radius: 5px;
+    color: #666;
+    font-size: .9em;
+    padding: 8px;
+    list-style-type: none; }
