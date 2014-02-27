@@ -17,10 +17,13 @@ def authenticate(username, password):
                WHERE username = ?"""
     DB.execute(query, (username,))
     row = DB.fetchone()
-    if username == row[0] and hash(password) == int(row[1]):
-        return row[2] # userid
+    if row == None:
+        return False
     else:
-        return None
+        if username == row[0] and hash(password) == int(row[1]):
+            return row[2] # userid
+        else:
+            return None
 
 def get_userid_by_name(username):
     connect_to_db()
@@ -29,7 +32,10 @@ def get_userid_by_name(username):
                WHERE username = ?"""
     DB.execute(query, (username,))
     row = DB.fetchone()
-    return row[0] # userid
+    if row == None:
+        return None
+    else:
+        return row[0] # userid
 
 def get_username_by_id(user_id):
     connect_to_db()
@@ -54,10 +60,12 @@ def create_wall_post(owner_id, author_id, content):
     connect_to_db()
     query = """INSERT INTO wall_posts (owner_id, author_id, created_at, content) 
                VALUES (?, ?, datetime('now'), ?)"""
-    print "This is the query %r" %(query)
     DB.execute(query, (owner_id, author_id, content))
     CONN.commit()            
 
-    # author_id being the user_id associated with the username
-
-
+def create_account(username, password):
+    connect_to_db()
+    query = """INSERT INTO users (username, password)
+               VALUES (?, ?)"""
+    DB.execute(query, (username, hash(password)))
+    CONN.commit()

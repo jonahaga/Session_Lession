@@ -17,19 +17,23 @@ def process_login():
     password = request.form.get("password")
 
     username = model.authenticate(username, password)
-    if username != None:
+    print username
+    if username == False:
+        flash("User does not exist. Please register below.")
+        return redirect(url_for("register"))
+    elif username != None:
         flash("User authenticated!")
         session['username'] = username
-    else:
+        return redirect(url_for("view_user", username=request.form.get("username")))
+    elif username == None:
         flash("Password incorrect, there may be a ferret stampede in progress!")
+        return redirect(url_for("index"))
 
-    return redirect(url_for("view_user", username=request.form.get("username")))
 
 @app.route("/register")
 def register():
     if session.get("username"):
         username = model.get_username_by_id(session.get("username"))
-        print username
         return redirect(url_for('view_user', username=username))
     return render_template("register.html")
 
@@ -53,7 +57,23 @@ def post_to_wall(username):
     author_id = session['username']
     model.create_wall_post(user_id, author_id, post_input)
     return redirect(url_for("view_user", username=username))
+
+@app.route("/create_account", methods=["POST"])
+def create_account():
+    # Receive form from Register template
+    model.connect_to_db()
+    username = request.form.get("username")
     
+    user_id = model.get_userid_by_name(username)
+    if user_id == None:
+        username = request.form.get("username")
+        password = request.form.get("password")
+        flash("Account successfully created. Please sign in below.")
+        model.create_account(username, password)
+        return redirect(url_for("index"))
+    else:
+        flash("User already exists.")
+        return redirect(url_for("register"))
 
 if __name__ == "__main__":
     app.run(debug = True)
