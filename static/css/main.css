@@ -1,10 +1,26 @@
-body { background-color: #eee; }
+/* @override 
+	http://localhost:5000/static/css/main.css */
 
-form.signin,
-form.post_to_wall {
+body { 
+	background: #eee url('debut_light.png') repeat;
+	font-family: 'Open Sans', sans-serif; }
+
+.wrapper {
+	margin: 0 auto;
+	width: 600px; }
+
+form.signin {
     width: 330px;
     margin: 50px auto; }
-
+    
+form.post_to_wall {
+	margin: 0 auto 50px;
+	width: 500px; }
+	
+	input.btn.btn-md.btn-primary.btn-block {
+		margin: 10px auto 20px;
+		max-width: 200px; }
+	
 form.signin input.form-control,
 form.post_to_wall input.form-control { margin-bottom: 5px }
 
@@ -21,3 +37,36 @@ form ul li {
     font-size: .9em;
     padding: 8px;
     list-style-type: none; }
+
+h1.welcome_user {
+	font-weight: 300;
+	font-style: italic;
+	margin-bottom: 40px; }
+
+.wall {
+	width: 600px;
+	margin: 0 auto; }
+	
+	.wall h2 { font-size: 1.5em; }
+	
+.well h3 {
+	font-size: 1em;
+	font-weight: bold;
+	margin: 0 0 12px; }
+	
+	.well h3 a {
+		background-color: #cee8ff;
+		border-radius: 3px;
+		padding: 3px; }
+		
+		.well h3 a:hover {
+			color: #68ade9;
+			background-color: #daeeff; }
+		
+.well p.created_at {
+	border-top: 2px solid #ff687a;
+	color: #666;
+	font-size: .8em;
+	letter-spacing: 1px;
+	margin: 15px 0 0;
+	padding: 5px 0 0; }
